@@ -1,0 +1,13 @@
+## 自定义View监听宿主Activity的生命周期变化
+* 原理：借助Fragment感知activity的生命周期，向Fragment中添加ActivityLifeListener，当Activity的生命周期发生变化，
+联动fragment生命周期变化，进而在fragment中的不同生命周期中通过回调ActivityLifeListener告知自定义View，
+Activity当前所处的生命周期。
+
+## 适配自定义View两种添加方式：
+1. 直接在xml中引入，自定义view中获取的context就是当前Activity。
+2. 通过代码new出自定义view，传入的context可能为applicationContext，向自定义View的父View递归遍历，总有父View
+的context是当前的Activity。
+
+## 适配新旧fragment
+1. 继承android.app包的Fragment，获取Activity下的FragmentManager，添加AppLifecycleFragment
+2. 继承androidx.fragment.app包的Fragment，获取FragmentActivity下的FragmentManager，添加AndroidXLifecycleFragment
